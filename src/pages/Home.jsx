@@ -9,6 +9,10 @@ import { Pagination } from 'swiper/modules';
 import Footer from '../components/common/Footer';
 
 const Home = () => {
+
+  const user = JSON.parse(localStorage.getItem('user'));
+  console.log(user);
+{/* <h2>{user && user.email}</h2> */}
   return (
     <>
     
