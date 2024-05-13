@@ -1,8 +1,8 @@
 import React from 'react';
 import { IoCartOutline } from 'react-icons/io5';
 import { IoIosSearch } from 'react-icons/io';
-import { Link } from 'react-router-dom';
-
+// import { Link } from 'react-router-dom';
+import User from './User';
 const Header = () => {
   return (
     <div className="mx-auto max-w-7xl bg-white">
@@ -10,13 +10,7 @@ const Header = () => {
         {/* First */}
         <div className="py-2 md:py-2 px-3 flex items-center justify-between text-sm border-b">
           <div className="flex gap-2 md:gap-4">
-            <div className="flex gap-1">
-              Hi! <Link to="/login" className="underline text-blue-500">Sign in</Link>{' '}
-              <span className="hidden md:block">or </span>
-              <a className="hidden md:block underline text-blue-500">
-                register
-              </a>
-            </div>
+            <User/>
             <div className="hidden md:block">Daily Deals</div>
             <div className="hidden md:block">Help & Contact</div>
           </div>
