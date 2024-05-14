@@ -33,7 +33,6 @@ const Register = () => {
         formData.email,
         formData.password
       );
-      console.log(userCredential);
       const user = userCredential.user;
       // const userData = {
       //   email: formData.email,

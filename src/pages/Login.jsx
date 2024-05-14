@@ -1,19 +1,19 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { MdOutlineVisibility } from "react-icons/md";
-import { MdOutlineVisibilityOff } from "react-icons/md";
-import { FcGoogle } from "react-icons/fc";
-import { FaApple } from "react-icons/fa";
-import { ImFacebook2 } from "react-icons/im";
-import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { auth, googleAuthProvider } from "../firebase/firebase";
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { MdOutlineVisibility } from 'react-icons/md';
+import { MdOutlineVisibilityOff } from 'react-icons/md';
+import { FcGoogle } from 'react-icons/fc';
+import { FaApple } from 'react-icons/fa';
+import { ImFacebook2 } from 'react-icons/im';
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { auth, googleAuthProvider } from '../firebase/firebase';
 const Login = () => {
   const [formData, setFormData] = useState({
     //   firstName: '',
     //   lastName: '',
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
   // const [isFormFilled, setIsFormFilled] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -43,9 +43,9 @@ const Login = () => {
       //   firstName : formData.firstName,
       //   lastName : formData.lastName
       // }
-      localStorage.setItem("token", user.accessToken);
-      localStorage.setItem("user", JSON.stringify(user));
-      navigate("/");
+      localStorage.setItem('token', user.accessToken);
+      localStorage.setItem('user', JSON.stringify(user));
+      navigate('/');
     } catch (error) {
       console.log(error);
     }
@@ -55,17 +55,17 @@ const Login = () => {
     try {
       const result = await signInWithPopup(auth, googleAuthProvider);
       console.log(result);
-      localStorage.setItem("token", result.user.accessToken);
-      localStorage.setItem("user", JSON.stringify(result.user));
-      navigate("/");
+      localStorage.setItem('token', result.user.accessToken);
+      localStorage.setItem('user', JSON.stringify(result.user));
+      navigate('/');
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <>
-      <div className="py-8 px-3 flex items-center justify-between  text-base ">
+    <section className="max-w-7xl mx-auto">
+      <div className="py-8 px-3 flex items-center justify-between text-base ">
         <div>
           <Link to="/">
             <img
@@ -77,17 +77,19 @@ const Login = () => {
         </div>
       </div>
       <div className="py-18">
-        <div className="container mx-auto">
-          <div className="w-5/12  rounde-xl mx-auto overflow-hidden text-center">
+        <div className="w-full md:max-w-[400px] mx-auto">
+          <div className="text-center">
             <h2 className="text-4xl font-bold">Hello</h2>
             <p className="mt-4">
-              Sign in to eBay or{" "}
-              <span className="text-custom-blue hover:text-blue-700 underline">
+              Sign in to eBay or{' '}
+              <span className="text-custom-blue underline">
                 <Link to="/register">create an account</Link>
               </span>
             </p>
+          </div>
+          <div className="my-6 flex justify-center">
             <form action="#" onSubmit={handleSubmit}>
-              <div className="mt-4">
+              <div className="w-full flex items-center">
                 <input
                   type="text"
                   id="email"
@@ -95,24 +97,23 @@ const Login = () => {
                   value={formData.email}
                   onChange={handleInputChange}
                   placeholder="Email or username"
-                  className="border  border-gray-400 py-1 px-2  rounded-lg bg-gray-100 w-3/4 placeholder-gray-600"
+                  className="w-full md:w-[350px] border border-gray-400 py-2 px-2 rounded-lg bg-gray-100 placeholder-gray-900"
                 />
               </div>
-              <div className="mt-5 relative">
+              <div className="mt-5 relative flex items-center">
                 <input
-                  type={showPassword ? "text" : "password"}
+                  type={showPassword ? 'text' : 'password'}
                   id="password"
                   name="password"
                   value={formData.password}
                   onChange={handleInputChange}
                   placeholder="Password"
-                  className="border border-gray-400 py-1 px-2  rounded-lg bg-gray-100 w-3/4 placeholder-gray-600"
+                  className="w-full md:w-[350px] border border-gray-400 bg-gray-100 rounded-lg py-2 px-2 placeholder-gray-600"
                 />
-
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)} // Toggle password visibility inline
-                  className="absolute inset-y-0 right-0 px-24 py-2  rounded-md"
+                  className=" absolute right-2 py-2 rounded-md"
                 >
                   {showPassword ? (
                     <MdOutlineVisibilityOff />
@@ -125,99 +126,70 @@ const Login = () => {
               <div className="mt-5">
                 <button
                   type="submit"
-                  className=" rounded-2xl py-3  font-bold text-lg text-white bg-custom-blue hover:bg-blue-700 w-3/4"
+                  className="w-full md:w-[350px] rounded-3xl py-3 font-bold text-lg text-white bg-custom-blue hover:bg-blue-700"
                 >
                   Continue
                 </button>
               </div>
             </form>
-            {/* <div className='mt-5'>
-<p>
-  or
-</p>
-    </div> */}
-            {/* <div className='mt-5'>
-
-    
-    <div className='flex-1 border-t border-gray-300 ml-4 w-2/4 '><span className='m-4 text-gray-500'>or</span></div>
-    </div> */}
-            <div className="flex flex-row  mx-auto w-3/4 mt-5">
-              <div className="border-b-2 mb-2.5  mr-2 w-full"></div>
-              <div className="text-sm font-bold w-fit">OR</div>
-              <div className="border-b-2 mb-2.5 ml-2 w-full"></div>
-            </div>
-            <div className="mt-5">
-              <button className="flex items-center py-3 pl-3 pr-24 mx-auto justify-between rounded-full border  border-gray-200  font-bold text-lg text-white hover:bg-hv bg-fb w-3/4">
-                <span className="text-[25px]">
-                  <ImFacebook2 />
-                </span>
-                <span>Continue with Facebook</span>
-              </button>
-            </div>
-            <div className="mt-5">
-              <button
-                onClick={handleSignInWithGoogle}
-                className="flex items-center py-3 pl-3 pr-24 mx-auto justify-between rounded-full border  border-gray-500  font-bold text-lg text-gray-800 hover:bg-gray-200 bg-white w-3/4"
-              >
-                <span className="text-[22px]">
-                  <FcGoogle />
-                </span>
-                <span>Continue with Google</span>
-              </button>
-            </div>
-            <div className="mt-5">
-              <button className="flex items-center py-3 pl-3 pr-28 mx-auto justify-between rounded-full border  border-gray-500  font-bold text-lg text-gray-800 hover:bg-gray-200 bg-white w-3/4">
-                <span className="text-[22px]">
-                  <FaApple />
-                </span>
-                <span>Continue with Apple</span>
-              </button>
-            </div>
           </div>
+          <div className="flex gap-2">
+            <div className="border-b-2 mb-2.5 w-full" />
+            <div className="text-sm font-bold w-fit">OR</div>
+            <div className="border-b-2 mb-2.5 w-full" />
+          </div>
+          <button
+            onClick={handleSignInWithGoogle}
+            className="my-4 mx-auto md:w-[350px] flex gap-4 items-center pl-4 py-2 rounded-full border border-gray-500 font-bold text-lg text-gray-800 hover:bg-gray-200 bg-white"
+          >
+            <FcGoogle />
+            <p>Continue with Google</p>
+          </button>
+        </div>
 
-          <div className="border-b-2 my-8 "></div>
-          <div className=" py-4 text-white text-center">
-            <div className="container mx-auto">
-              <p className="text-gray-800 text-[12px]">
-                Copyright © 1995-2024 eBay Inc. All Rights Reserved.
-                <Link to="" className="text-gray-500 underline">
-                  Accessibility
-                </Link>
-                ,
-                <Link to="" className="text-gray-500 underline">
-                  User Agreement
-                </Link>
-                ,
-                <Link to="" className="text-gray-500 underline">
-                  Privacy
-                </Link>
-                ,
-                <Link to="" className="text-gray-500 underline">
-                  Payments Terms of Use
-                </Link>
-                ,
-                <Link to="" className="text-gray-500 underline">
-                  Cookies
-                </Link>
-                ,
-                <Link to="" className="text-gray-500 underline">
-                  CA Privacy Notice
-                </Link>
-                ,
-                <Link to="" className="text-gray-500 underline">
-                  Your Privacy Choices
-                </Link>{" "}
-                and
-                <Link to="" className="text-gray-500 underline">
-                  AdChoice
-                </Link>
-                .
-              </p>
-            </div>
+        <div className="border-b-2 my-8 "></div>
+        <div className=" py-4 text-white text-center">
+          <div className="container mx-auto">
+            <p className="text-gray-800 text-[12px]">
+              Copyright © 1995-2024 eBay Inc. All Rights Reserved.
+              <Link to="" className="text-gray-500 underline">
+                Accessibility
+              </Link>
+              ,
+              <Link to="" className="text-gray-500 underline">
+                User Agreement
+              </Link>
+              ,
+              <Link to="" className="text-gray-500 underline">
+                Privacy
+              </Link>
+              ,
+              <Link to="" className="text-gray-500 underline">
+                Payments Terms of Use
+              </Link>
+              ,
+              <Link to="" className="text-gray-500 underline">
+                Cookies
+              </Link>
+              ,
+              <Link to="" className="text-gray-500 underline">
+                CA Privacy Notice
+              </Link>
+              ,
+              <Link to="" className="text-gray-500 underline">
+                Your Privacy Choices
+              </Link>{' '}
+              and
+              <Link to="" className="text-gray-500 underline">
+                AdChoice
+              </Link>
+              .
+            </p>
           </div>
         </div>
       </div>
-    </>
+      {/* </div> */}
+    </section>
   );
 };
 

@@ -7,12 +7,21 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
 import Footer from '../components/common/Footer';
+import { useDispatch, useSelector } from 'react-redux';
+
+
+
 
 const Home = () => {
+  const dispatch = useDispatch();
+  console.log(useSelector((state) => state));
+
+
+  console.log("dispatch---->",dispatch);
+
 
   const user = JSON.parse(localStorage.getItem('user'));
-  console.log(user);
-{/* <h2>{user && user.email}</h2> */}
+  
   return (
     <>
     
