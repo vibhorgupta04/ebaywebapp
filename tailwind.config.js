@@ -4,9 +4,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'custom-blue': '#3498DB',
-        'fb':'#4e6491',
-        'hv':'#324169'
+        'custom-blue': '#3665f3',
+        'blue-1':'#4e6491',
+        'blue-2':'#324169'
       }
     },
   },

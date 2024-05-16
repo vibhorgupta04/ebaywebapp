@@ -3,6 +3,7 @@ import { IoCartOutline } from 'react-icons/io5';
 import { IoIosSearch } from 'react-icons/io';
 // import { Link } from 'react-router-dom';
 import User from './User';
+import { Link } from 'react-router-dom';
 const Header = () => {
   return (
     <div className="mx-auto max-w-7xl bg-white">
@@ -10,7 +11,7 @@ const Header = () => {
         {/* First */}
         <div className="py-2 md:py-2 px-3 flex items-center justify-between text-sm border-b">
           <div className="flex gap-2 md:gap-4">
-            <User/>
+            <User />
             <div className="hidden md:block">Daily Deals</div>
             <div className="hidden md:block">Help & Contact</div>
           </div>
@@ -21,11 +22,13 @@ const Header = () => {
         </div>
         {/* Second */}
         <div className="py-3 md:py-4 px-3 flex items-center justify-between gap-4  text-base border-b">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/EBay_logo.svg/300px-EBay_logo.svg.png"
-            alt="logo"
-            className="w-20 md:w-32"
-          />
+          <Link to="/">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/EBay_logo.svg/300px-EBay_logo.svg.png"
+              alt="logo"
+              className="w-20 md:w-32"
+            />
+          </Link>
           <div className="w-full flex gap-2 items-center">
             <div className="hidden md:blockleading-4">
               <select className="">
