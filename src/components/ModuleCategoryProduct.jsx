@@ -10,8 +10,9 @@ const ModuleCategoryProducts = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [categoryData, setCategoryData] = useState();
-  const {categoryId} = useParams()
+  const { categoryId } = useParams();
   const product = useSelector((state) => state);
+  console.log(product);
   useEffect(() => {
     (async () => {
       setLoading(true);
@@ -24,8 +25,9 @@ const ModuleCategoryProducts = () => {
     <section className="max-w-7xl mx-auto">
       <Header />
       <div className="my-6 mx-4 md:mx-auto w-fit grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
-        {categoryData?.map(
-          ({ images, description, title, price, id, category }, items) => (
+        {categoryData?.map((items) => {
+          const { images, title, price, id, category } = items;
+          return (
             <>
               {+category?.id === +categoryId && (
                 <Link to={`/products/${id}`}>
@@ -49,8 +51,8 @@ const ModuleCategoryProducts = () => {
                 </Link>
               )}
             </>
-          )
-        )}
+          );
+        })}
         Testing
       </div>
       <Footer />

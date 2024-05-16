@@ -11,8 +11,8 @@ import { Link } from 'react-router-dom';
 const ModuleCategory = ({ categoriesData }) => {
   const dispatch = useDispatch();
   return (
-    <div className="my-10 mx-2">
-      <div className="py-2 text-xl md:text-2xl font-bold">Shop By Category</div>
+    <div className="my-20 mx-2">
+      <div className="text-3xl md:text-5xl md:leading-[60px] pb-10  font-bold">Shop By Category</div>
       <Swiper
         spaceBetween={30}
         slidesPerView={4}
@@ -25,21 +25,26 @@ const ModuleCategory = ({ categoriesData }) => {
               className="w-full md:w-fit flex flex-col justify-center items-center cursor-pointer"
               onClick={() => dispatch(category(id))}
             >
-              <Link to={`/products/categoryId/${id}`}>
-              <div className="flex items-center bg-gray-300 rounded-full mx-auto">
-                {image && (
-                  <img
-                    src={image}
-                    alt="logo"
-                    className="rounded-full w-auto md:w-40 lg:w-60"
-                  />
-                )}
-              </div>
-              {name && (
-                <div className="text-lg md:text-xl hover:text-2xl hover:font-semibold">
-                  {name}
+              <Link
+                to={`/products/categoryId/${id}`}
+                className="flex flex-col items-center"
+              >
+                <div className="flex items-center bg-gray-300 rounded-full mx-auto">
+                  {image ? (
+                    <img
+                      src={image}
+                      alt="logo"
+                      className="rounded-full w-auto md:w-40 md:h-40 lg:w-60 lg:h-60"
+                    />
+                  ) : (
+                    <div className='bg-gray-600 lg:py-60 lg:h-60'></div>
+                  )}
                 </div>
-              )}
+                {name && (
+                  <div className="text-lg md:text-xl hover:text-2xl hover:font-semibold">
+                    {name}
+                  </div>
+                )}
               </Link>
             </div>
           </SwiperSlide>
