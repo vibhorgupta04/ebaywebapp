@@ -36,7 +36,6 @@ const Login = () => {
         formData.email,
         formData.password
       );
-      console.log(userCredential);
       const user = userCredential.user;
       // const userData = {
       //   email: formData.email,

@@ -6,7 +6,8 @@ import {
 } from "./slices/dropdownSlice";
 import {
   productReducer,
-  category
+  category,
+  productDetail
 } from "./slices/productSlice.js";
 
 
@@ -20,5 +21,6 @@ const store = configureStore({
 export {
   store,
   data,
-  category
+  category,
+  productDetail
 };

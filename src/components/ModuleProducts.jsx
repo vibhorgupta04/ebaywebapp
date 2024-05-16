@@ -6,7 +6,6 @@ import { fetchProducts } from '../api/fetch';
 const Products = () => {
   const [loading, setLoading] = useState(false);
   const [productsData, setProductsData] = useState();
-  console.log('productsData--', productsData);
   useEffect(() => {
     (async () => {
       setLoading(true);
