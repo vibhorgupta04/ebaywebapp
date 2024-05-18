@@ -7,7 +7,8 @@ import {
 import {
   productReducer,
   category,
-  productDetail
+  productDetail,
+  searchItem
 } from "./slices/productSlice.js";
 
 
@@ -22,5 +23,6 @@ export {
   store,
   data,
   category,
-  productDetail
+  productDetail,
+  searchItem
 };

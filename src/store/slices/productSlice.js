@@ -5,6 +5,7 @@ const productSlice = createSlice({
   initialState: {
     categorySlug: '',
     productItem: 'dsadas',
+    title: ''
   },
   reducers: {
     category(state, action) {
@@ -13,8 +14,12 @@ const productSlice = createSlice({
     productDetail(state, action) {
       state.productItem = action.payload;
     },
+    searchItem(state, action) {
+      state.title = action.payload;
+    },
   },
 });
 
-export const { chartType, category, productDetail } = productSlice.actions;
+export const { chartType, category, productDetail, searchItem } =
+  productSlice.actions;
 export const productReducer = productSlice.reducer;

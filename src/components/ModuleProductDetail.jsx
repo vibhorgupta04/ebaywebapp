@@ -9,7 +9,7 @@ const ModuleProductDetail = () => {
   const { productId } = useParams();
   // console.log(product);
   return (
-    <section className="max-w-7xl mx-auto">
+    <section>
       <Header />
       <ModuleProductPage  />
       <Footer />  
