@@ -5,7 +5,8 @@ import { MdOutlineVisibility } from 'react-icons/md';
 import { MdOutlineVisibilityOff } from 'react-icons/md';
 import { FcGoogle } from 'react-icons/fc';
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { auth, googleAuthProvider } from '../firebase/firebase';
+import { auth, googleAuthProvider,db } from '../firebase/firebase';
+import { setDoc,doc } from "firebase/firestore";
 const Login = () => {
 
   const [formData, setFormData] = useState({
@@ -51,8 +52,17 @@ const Login = () => {
     try {
       const result = await signInWithPopup(auth, googleAuthProvider);
       console.log(result);
+    
       localStorage.setItem('token', result.user.accessToken);
       localStorage.setItem('user', JSON.stringify(result.user));
+      if(result.user){
+        await setDoc(doc(db, "Users", result.user.uid),{
+          email: result.user.email,
+          firstName: result.user.displayName,
+          photo: result.user.photoURL,
+          lastName: "",
+        });
+      }
       navigate('/');
     } catch (error) {
       console.log(error);

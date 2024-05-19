@@ -58,7 +58,8 @@ if(user){
   await setDoc(doc(db, "Users", user.uid),{
     email: user.email,
     firstName: formData.firstName,
-    lastName: formData.lastName
+    lastName: formData.lastName,
+    photo:""
   });
   
 }

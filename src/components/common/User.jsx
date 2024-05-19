@@ -4,9 +4,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth ,app,db} from "../../firebase/firebase";
 import { useState , useEffect } from "react";
 import {doc,getDoc} from "firebase/firestore"
-
+import { RiArrowDropDownLine } from "react-icons/ri";
+import person from "../../assets/user1.jpg"
 function User() {
- 
+
+  const [open,setOpen] = useState(false)
+
 const [userDetails, setUserDetails] = useState(null);
 const fetchUserData = async () => {
   auth.onAuthStateChanged(async (user) => {
@@ -38,17 +41,34 @@ useEffect(()=>{
     navigate("/login");
   };
 
+  
+
   return (
     <>
       {/* {!localStorage.getItem("token") ? ( */}
       {userDetails ? (
-        <div className="flex gap-1">
+        <div className="relative">
+          <div  onClick={()=> setOpen(!open)} className="flex gap-1 cursor-pointer bg-white">
           Hi <span className="text-black font-semibold underline">{ userDetails.firstName }!</span>
-          <Link>
-            <span onClick={handleLogout} className="hidden md:block">
-              Logout
-            </span>
-          </Link>
+          <span className="text-[20px]"><RiArrowDropDownLine /></span>
+          
+         
+        </div>
+       
+          {
+  open && (
+    <div  className="rounded border-[1px] border-gray-500 bg-white  absolute top-[25px] w-[100px] shadow-md">
+
+<div className="p-1">
+<img src={userDetails.photo || person} alt='' className='w-[40px] h-[40px] rounded-full  border-4 border-white  ' />
+</div>
+
+<div className="cursor-pointer hover:text-gray-400 pl-2 ">Profile</div>
+
+<div onClick={handleLogout} className="cursor-pointer hover:text-gray-400 pl-2 ">Sign out</div>
+</div>
+  )
+}
         </div>
       ) : (
 
