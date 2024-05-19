@@ -8,6 +8,7 @@ import ModuleCategoryProducts from './components/ModuleCategoryProduct';
 import ModuleProductsDetail from './components/ModuleProductDetail';
 import ModuleSearch from './components/ModuleSearch';
 import ModulePageNotFound from "./components/ModulePageNotFound";
+import ModuleCheckout from './components/ModuleCheckout';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/products/:productId" element={<ModuleProductsDetail />} />
         <Route path="/search" element={<ModuleSearch />} />
         <Route path="*" element={<ModulePageNotFound />} />
+        <Route path={`/checkout`} element={<ModuleCheckout />} />
       </Routes>
     </>
   );
