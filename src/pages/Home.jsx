@@ -34,6 +34,7 @@ const Home = () => {
   return (
     <section className="max-w-7xl mx-auto">
       <Header />
+      <div className=" border-b"></div>
       <div className="mt-2 mb-6 mx-auto">
         <Swiper
           spaceBetween={30}

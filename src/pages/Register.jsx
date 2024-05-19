@@ -1,17 +1,27 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState ,  useEffect } from "react";
 import { MdOutlineVisibility } from "react-icons/md";
 import { MdOutlineVisibilityOff } from "react-icons/md";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase/firebase";
+import { auth , db } from "../firebase/firebase";
+import { setDoc,doc } from "firebase/firestore";
+import {ToastContainer} from "react-toastify";
+import { toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css";
+
 const Register = () => {
+
+  
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
   });
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
+
   const [isFormFilled, setIsFormFilled] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -27,27 +37,75 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setFormErrors(validate(formData));
+    setIsSubmit(true);
+    toast.success("Register successfully")
     try {
-      const userCredential = await createUserWithEmailAndPassword(
+      // const userCredential = await createUserWithEmailAndPassword(
+      //   auth,
+      //   formData.email,
+      //   formData.password
+      // );
+      await createUserWithEmailAndPassword(
         auth,
         formData.email,
         formData.password
       );
-      const user = userCredential.user;
-      // const userData = {
-      //   email: formData.email,
-      //   firstName : formData.firstName,
-      //   lastName : formData.lastName
-      // }
+      // const user = userCredential.user;
+const user = auth.currentUser;  
+console.log(user);
+if(user){
+  await setDoc(doc(db, "Users", user.uid),{
+    email: user.email,
+    firstName: formData.firstName,
+    lastName: formData.lastName
+  });
+  
+}
+console.log("user register successfully")    
       localStorage.setItem("token", user.accessToken);
       localStorage.setItem("user", JSON.stringify(user));
       navigate("/login");
     } catch (error) {
       console.log(error);
     }
+
   };
+
+  useEffect(() => {
+    console.log(formErrors);
+    if (Object.keys(formErrors).length === 0 && isSubmit) {
+      console.log(formData);
+    }
+  }, [formErrors]);
+
+
+  const validate = (values) => {
+    const errors = {};
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    if (!values.firstName) {
+      errors.username = "firstName is required!";
+    }
+    if (!values.lastName) {
+      errors.username = "lastName is required!";
+    }
+    if (!values.email) {
+      errors.email = "Email is required!";
+    } else if (!regex.test(values.email)) {
+      errors.email = "This is not a valid email format!";
+    }
+    if (!values.password) {
+      errors.password = "Password is required";
+    } else if (values.password.length < 4) {
+      errors.password = "Password must be more than 4 characters";
+    } else if (values.password.length > 10) {
+      errors.password = "Password cannot exceed more than 10 characters";
+    }
+    return errors;
+  };
+
   return (
-    <>
+    <section className="max-w-7xl mx-auto">
       <div className="py-3 md:py-4 px-3 flex items-center justify-between  text-base ">
         <Link to="/">
           <img
@@ -80,6 +138,13 @@ const Register = () => {
           </div>
           <div className="w-1/2 py-11 px-32 ">
             <h2 className="text-4xl font-bold">Create an account</h2>
+
+            {/* {Object.keys(formErrors).length === 0 && isSubmit ? (
+        <div className="ui message success">Signed in successfully</div>
+      ) : (
+        <pre>{JSON.stringify(formData, undefined, 2)}</pre>
+      )} */}
+
             <form action="#" onSubmit={handleSubmit}>
               <div className="grid grid-cols-2 gap-5 mt-5">
                 <input
@@ -92,6 +157,7 @@ const Register = () => {
                   required
                   className="border border-gray-400 py-1 px-2 rounded-lg bg-gray-100"
                 />
+                <span className="text-red-600">{formErrors.firstName}</span>
                 <input
                   type="text"
                   id="lastName"
@@ -102,6 +168,7 @@ const Register = () => {
                   required
                   className="border border-gray-400 py-1 px-2 rounded-lg bg-gray-100"
                 />
+                <span className="text-red-600">{formErrors.lastName}</span>
               </div>
               <div className="mt-5">
                 <input
@@ -115,6 +182,7 @@ const Register = () => {
                   className="border  border-gray-400 py-1 px-2 w-full rounded-lg bg-gray-100"
                 />
               </div>
+              <p className="text-red-600">{formErrors.email}</p>
               <div className="mt-5 relative">
                 <input
                   type={showPassword ? "text" : "password"}
@@ -126,7 +194,7 @@ const Register = () => {
                   required
                   className="border border-gray-400 py-1 px-2 w-full rounded-lg bg-gray-100"
                 />
-
+<p className="text-red-600">{formErrors.password}</p>
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)} // Toggle password visibility inline
@@ -206,7 +274,8 @@ const Register = () => {
           </p>
         </div>
       </div>
-    </>
+      <ToastContainer theme="dark"/>
+      </section>
   );
 };
 

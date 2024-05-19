@@ -1,8 +1,9 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { RiArrowGoBackLine, RiMoneyDollarCircleFill } from 'react-icons/ri';
 import { BsLightningCharge } from 'react-icons/bs';
+import { addToCart } from '../store/slices/cartSlice';
 import {
   SiPaytm,
   SiPaypal,
@@ -20,6 +21,8 @@ import { Pagination } from 'swiper/modules';
 const ModuleProductPage = () => {
   const product = useSelector((state) => state.product.productItem);
   const { description, images, price, title } = product;
+
+  const dispatch = useDispatch();
 
   return (
     <div className="mx-2 my-10">
@@ -65,8 +68,8 @@ const ModuleProductPage = () => {
               <button className="w-full bg-blue-600 font-semibold text-white text-lg rounded-full py-3">
                 Buy it Now
               </button>
-              <button className="w-full ring-1 ring-blue-600 font-semibold text-blue-600 text-lg rounded-full py-3">
-                View in Cart
+              <button onClick={()=> dispatch(addToCart(product))}  className="w-full ring-1 ring-blue-600 font-semibold text-blue-600 text-lg rounded-full py-3">
+                Add to Cart
               </button>
               <button className="w-full ring-1 ring-blue-600 font-semibold text-blue-600 text-lg rounded-full py-3">
                 Make Offer

@@ -17,11 +17,11 @@ const Header = () => {
           </div>
           <div className="flex gap-4 justify-center items-center">
             <div>My ebay</div>
-            <IoCartOutline className="text-2xl" />
+           <Link to="/cart"><IoCartOutline className="text-2xl" /></Link> 
           </div>
         </div>
         {/* Second */}
-        <div className="py-3 md:py-4 px-3 flex items-center justify-between gap-4  text-base border-b">
+        <div className="py-3 md:py-4 px-3 flex items-center justify-between gap-4  text-base ">
           <Link to="/">
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/EBay_logo.svg/300px-EBay_logo.svg.png"

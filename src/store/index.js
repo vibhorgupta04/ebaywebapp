@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-
+import { cartReducer } from "./slices/cartSlice.js";
 import {
   dropdownReducer,
   data
@@ -15,6 +15,7 @@ const store = configureStore({
   reducer: {
     dropdown: dropdownReducer,
     product: productReducer,
+    allCart: cartReducer,
   },
 });
 
