@@ -96,7 +96,7 @@ const ModuleCheckout = (props) => {
             <div className="border-b pt-6" />
             <div className="w-full flex justify-between text-2xl font-bold py-3">
               <p>Order total</p>
-              <p>US ${(price * quantity).toFixed(2)}</p>
+              <p>US ${((price * quantity) + 4.80).toFixed(2)}</p>
             </div>
             <p className="bg-gray-100 px-3 py-2 mt-6 text-sm">
               The state of Alabama requires eBay to collect sales tax and
