@@ -1,21 +1,22 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState ,useEffect} from 'react';
 import { MdOutlineVisibility } from 'react-icons/md';
 import { MdOutlineVisibilityOff } from 'react-icons/md';
 import { FcGoogle } from 'react-icons/fc';
-import { FaApple } from 'react-icons/fa';
-import { ImFacebook2 } from 'react-icons/im';
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { auth, googleAuthProvider } from '../firebase/firebase';
+import { auth, googleAuthProvider,db } from '../firebase/firebase';
+import { setDoc,doc } from "firebase/firestore";
 const Login = () => {
+
   const [formData, setFormData] = useState({
-    //   firstName: '',
-    //   lastName: '',
+    
     email: '',
     password: '',
   });
-  // const [isFormFilled, setIsFormFilled] = useState(false);
+
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
@@ -24,12 +25,13 @@ const Login = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
 
-    //   const isFilled = Object.values(formData).every((field) => field !== '');
-    //   setIsFormFilled(isFilled);
+    
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setFormErrors(validate(formData));
+    setIsSubmit(true);
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
@@ -37,11 +39,7 @@ const Login = () => {
         formData.password
       );
       const user = userCredential.user;
-      // const userData = {
-      //   email: formData.email,
-      //   firstName : formData.firstName,
-      //   lastName : formData.lastName
-      // }
+    
       localStorage.setItem('token', user.accessToken);
       localStorage.setItem('user', JSON.stringify(user));
       navigate('/');
@@ -54,12 +52,47 @@ const Login = () => {
     try {
       const result = await signInWithPopup(auth, googleAuthProvider);
       console.log(result);
+    
       localStorage.setItem('token', result.user.accessToken);
       localStorage.setItem('user', JSON.stringify(result.user));
+      if(result.user){
+        await setDoc(doc(db, "Users", result.user.uid),{
+          email: result.user.email,
+          firstName: result.user.displayName,
+          photo: result.user.photoURL,
+          lastName: "",
+        });
+      }
       navigate('/');
     } catch (error) {
       console.log(error);
     }
+  };
+
+  useEffect(() => {
+    console.log(formErrors);
+    if (Object.keys(formErrors).length === 0 && isSubmit) {
+      console.log(formData);
+    }
+  }, [formErrors]);
+
+  const validate = (values) => {
+    const errors = {};
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+   
+    if (!values.email) {
+      errors.email = "Email is required!";
+    } else if (!regex.test(values.email)) {
+      errors.email = "This is not a valid email format!";
+    }
+    if (!values.password) {
+      errors.password = "Password is required";
+    } else if (values.password.length < 4) {
+      errors.password = "Password must be more than 4 characters";
+    } else if (values.password.length > 10) {
+      errors.password = "Password cannot exceed more than 10 characters";
+    }
+    return errors;
   };
 
   return (
@@ -99,6 +132,7 @@ const Login = () => {
                   className="w-full md:w-[350px] border border-gray-400 py-2 px-2 rounded-lg bg-gray-100 placeholder-gray-900"
                 />
               </div>
+              <p className="text-red-600">{formErrors.email}</p>
               <div className="mt-5 relative flex items-center">
                 <input
                   type={showPassword ? 'text' : 'password'}
@@ -109,6 +143,9 @@ const Login = () => {
                   placeholder="Password"
                   className="w-full md:w-[350px] border border-gray-400 bg-gray-100 rounded-lg py-2 px-2 placeholder-gray-600"
                 />
+                 </div>
+                 <p className="text-red-600">{formErrors.password}</p>
+                 <div>
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)} // Toggle password visibility inline
