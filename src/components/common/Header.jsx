@@ -26,14 +26,14 @@ const Header = () => {
         {/* First */}
         <div className="border-b">
           <div className="max-w-7xl mx-auto py-2 md:py-2 px-3 flex items-center justify-between text-sm border-b">
-            <div className="flex gap-2 md:gap-4">
+            <div className="flex items-center gap-2 md:gap-4">
               <User />
               <Link to='/products' className="hidden md:block">Daily Deals</Link>
               <div className="hidden md:block">Help & Contact</div>
             </div>
-            <Link to='/cart' className="flex gap-4 justify-center items-center">
+            <Link to='/cart' className="relative flex gap-4 justify-center items-center pr-6">
               <IoCartOutline className="text-2xl" />
-              {totalItemInCart > 0 && <span className="bg-blue-600 font-bold text-white flex items-center justify-center rounded-full w-8 h-8">{totalItemInCart}</span>}
+              {totalItemInCart > 0 && <span className="absolute -top-2 right-4  bg-blue-600 font-bold text-white flex items-center justify-center rounded-full w-5 h-5">{totalItemInCart}</span>}
             </Link>
           </div>
         </div>
