@@ -3,6 +3,7 @@ import Header from './common/Header';
 import Footer from './common/Footer';
 import { Link, useLocation } from 'react-router-dom';
 import { fetchProductByTitle } from '../api/fetch';
+import { parseImageUrl } from "./ModuleProducts";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -23,7 +24,6 @@ const ModuleSearch = () => {
     })();
   }, [title]);
 
-  console.log(searchData);
   return (
     <div>
       <Header />
@@ -46,13 +46,13 @@ const ModuleSearch = () => {
                           {images ? (
                             images
                               .slice(0, 1)
-                              .map((item, index) => (
+                              .map((url) => (
                                 <img
-                                  key={index}
-                                  src={item}
+                                  key={url}
+                                  src={parseImageUrl(url)}
                                   alt={`Product ${id}`}
-                                  className="w-40"
-                                />
+                                  className="w-40 h-32"
+                                  />
                               ))
                           ) : (
                             <div className="py-40 px-40 bg-gray-300"></div>

@@ -2,13 +2,11 @@ import React, { useEffect, useState } from 'react';
 import Header from './common/Header';
 import Footer from './common/Footer';
 import { fetchCategoryProduct } from '../api/fetch';
-import { useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { productDetail } from '../store';
 import Loading from './common/Loading';
+import { parseImageUrl } from "./ModuleProducts";
 
 const ModuleCategoryProducts = () => {
-  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [categoryData, setCategoryData] = useState();
   const { categoryId } = useParams();
@@ -37,16 +35,16 @@ const ModuleCategoryProducts = () => {
                     <Link to={`/products/${id}`} key={`product-${id}`}>
                       <div
                         className="w-full md:w-40 flex flex-col text-left my-2"
-                        // onClick={() => dispatch(productDetail(items))}
                       >
                         {images ? (
                           images
                             ?.slice(0, 1)
-                            .map((item, index) => (
+                            .map((url) => (
                               <img
-                                src={item}
-                                alt=""
-                                className="w-full md:w-40"
+                                key={url}
+                                src={parseImageUrl(url)}
+                                alt={`Product ${id}`}
+                                className="w-40 h-32"
                               />
                             ))
                         ) : (
@@ -67,7 +65,6 @@ const ModuleCategoryProducts = () => {
           </>
         )}
       </div>
-
       <Footer />
     </section>
   );

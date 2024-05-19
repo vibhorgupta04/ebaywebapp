@@ -1,7 +1,5 @@
 import React from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
 import { Swiper, SwiperSlide } from 'swiper/react';
-// import { category } from '../store';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -26,7 +24,6 @@ const ModuleCategory = ({ categoriesData }) => {
               <SwiperSlide key={id && `category-${id}`}>
                 <div
                   className="w-full md:w-fit flex flex-col justify-center items-center cursor-pointer"
-                  // onClick={() => dispatch(category(id))}
                 >
                   <Link
                     to={`/products/categoryId/${id}`}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchItem } from '../../store';
 import User from './User';
@@ -12,23 +12,23 @@ const Header = () => {
 
   const search = useSelector((state) => state.product.title);
 
-  const handleSearch = () => {
+  const handleSearch = (e) => {
+    e.preventDefault()
     navigate(`/search?title=${search}`);
   };
 
   return (
-    <div className="mx-auto  bg-white">
+    <header className="mx-auto  bg-white">
       <div className="w-full">
         {/* First */}
         <div className="border-b">
           <div className="max-w-7xl mx-auto py-2 md:py-2 px-3 flex items-center justify-between text-sm border-b">
             <div className="flex gap-2 md:gap-4">
               <User />
-              <div className="hidden md:block">Daily Deals</div>
+              <Link to='/products' className="hidden md:block">Daily Deals</Link>
               <div className="hidden md:block">Help & Contact</div>
             </div>
             <div className="flex gap-4 justify-center items-center">
-              <div>My ebay</div>
               <IoCartOutline className="text-2xl" />
             </div>
           </div>
@@ -50,7 +50,8 @@ const Header = () => {
                 </select>
                 {/* Shop By Category */}
               </div>
-              <div className="w-full flex gap-2">
+              <>
+              <form onSubmit={handleSearch} className="w-full flex gap-2">
                 <div className="w-full flex items-center border border-black">
                   <IoIosSearch className="ml-2 text-2xl text-gray-400" />
                   <input
@@ -62,17 +63,19 @@ const Header = () => {
                 </div>
                 <button
                   className="text-white bg-blue-600 px-4 md:px-10 py-1"
-                  disabled={search.length === 0}
-                  onClick={handleSearch}
+                  disabled={!search}
+                  type="submit"
+                  // onClick={handleSearch}
                 >
                   Search
                 </button>
-              </div>
+              </form>
+              </>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 

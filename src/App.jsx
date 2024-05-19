@@ -7,20 +7,20 @@ import ModuleProducts from './components/ModuleProducts';
 import ModuleCategoryProducts from './components/ModuleCategoryProduct';
 import ModuleProductsDetail from './components/ModuleProductDetail';
 import ModuleSearch from './components/ModuleSearch';
+import ModulePageNotFound from "./components/ModulePageNotFound";
 
 const App = () => {
-  
   return (
     <>
-      {/* <Header /> */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/products" element={<ModuleProducts />} />
-        <Route path={`/products/categoryId/:categoryId`} element={<ModuleCategoryProducts />} />
-        <Route path={`/products/:productId`} element={<ModuleProductsDetail />} />
-        <Route path={`/search`} element={<ModuleSearch />} />
+        <Route path="/products/categoryId/:categoryId" element={<ModuleCategoryProducts />} />
+        <Route path="/products/:productId" element={<ModuleProductsDetail />} />
+        <Route path="/search" element={<ModuleSearch />} />
+        <Route path="*" element={<ModulePageNotFound />} />
       </Routes>
     </>
   );

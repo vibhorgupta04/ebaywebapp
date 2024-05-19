@@ -4,13 +4,10 @@ import Footer from './common/Footer';
 import { fetchProducts } from '../api/fetch';
 import Loading from './common/Loading';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 const Products = () => {
   const [loading, setLoading] = useState(false);
   const [productsData, setProductsData] = useState();
-  console.log(productsData);
-  const search = useSelector((state) => state.product.title);
 
   useEffect(() => {
     (async () => {
@@ -20,16 +17,6 @@ const Products = () => {
       setLoading(false);
     })();
   }, []);
-
-  // useEffect(() => {
-  //   (async () => {
-  //     setLoading(true);
-  //     const res = await fetchProducts();
-  //     setProductsData(res.data);
-  //     setLoading(false);
-  //   })();
-  // }, []);
-
   return (
     <section>
       <Header />
@@ -48,13 +35,13 @@ const Products = () => {
                     {images ? (
                       images
                         .slice(0, 1)
-                        .map((item, index) => (
+                        .map((url) => (
                           <img
-                            key={index}
-                            src={item}
+                            key={url}
+                            src={parseImageUrl(url)}
                             alt={`Product ${id}`}
-                            className="w-40"
-                          />
+                            className="w-40 h-32"
+                            />
                         ))
                     ) : (
                       <div className="py-40 px-40 bg-gray-300"></div>
@@ -74,3 +61,11 @@ const Products = () => {
 };
 
 export default Products;
+
+export const parseImageUrl = (url) => {
+  let splittedUrl = url.split('https')[1]
+  splittedUrl = 'https' + splittedUrl.split('\"')[0]
+  const extensions = ['.jpeg', '.svg', '.png'];
+  if(extensions.some(extension => splittedUrl.endsWith(extension))) return splittedUrl
+  return '/assets/images/No-Image-Placeholder.svg.png'
+}

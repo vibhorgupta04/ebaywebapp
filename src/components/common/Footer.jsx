@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <div className="bg-gray-50 px-4 py-6 border-t text-xs text-gray-700">
+    <footer className="bg-gray-50 px-4 py-6 border-t text-xs text-gray-700">
       <div className='max-w-7xl mx-auto'>
         <div className="pb-6 flex flex-wrap gap-4 cursor-pointer">
           <div className="hover:underline">About eBay</div>
@@ -14,7 +14,7 @@ const Footer = () => {
         </div>
         <div>Copyright © 1995-2024 eBay Inc. All Rights Reserved. </div>
       </div>
-    </div>
+    </footer>
   );
 };
 

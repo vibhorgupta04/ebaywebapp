@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { RiArrowGoBackLine, RiMoneyDollarCircleFill } from 'react-icons/ri';
 import { BsLightningCharge } from 'react-icons/bs';
@@ -20,6 +19,7 @@ import { useParams } from 'react-router-dom';
 import { fetchProductById } from '../api/fetch';
 import Loading from './common/Loading';
 import moment from 'moment';
+import {parseImageUrl} from './ModuleProducts'
 
 const ModuleProductPage = () => {
   const { productId } = useParams();
@@ -35,8 +35,6 @@ const ModuleProductPage = () => {
   }, [productId]);
 
   const { description, images, price, title, updatedAt } = productData;
-
-  console.log(updatedAt);
 
   if (loading) {
     return <Loading />;
@@ -64,7 +62,7 @@ const ModuleProductPage = () => {
                     <SwiperSlide key={index}>
                       <img
                         className="w-full lg:w-[800px] lg:h-[800px]"
-                        src={item}
+                        src={parseImageUrl(item)}
                         alt="product"
                       />
                     </SwiperSlide>
