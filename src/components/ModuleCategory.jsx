@@ -147,7 +147,7 @@ const ModuleCategory = ({ categoriesData }) => {
                       )}
                     </div> */}
                     {category && (
-                      <div className="text-lg md:text-xl hover:text-2xl h-10 hover:font-semibold">
+                      <div className="text-lg md:text-xl h-10 hover:font-semibold capitalize">
                         {category}
                       </div>
                     )}

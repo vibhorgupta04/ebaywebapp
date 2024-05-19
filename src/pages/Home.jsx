@@ -66,7 +66,7 @@ const Home = () => {
           </Swiper>
         </div>
         <ModuleCategory categoriesData={categoriesData} />
-        <div className="flex flex-col md:flex-row bg-gray-100">
+        <div className="flex flex-col md:flex-row bg-gray-100 mb-4 rounded">
           <div className="md:min-w-[400px] flex flex-col py-6 md:py-4 px-4 gap-y-4">
             <h3 className="text-3xl md:text-5xl md:leading-[60px] font-semibold">
               Expand your collection

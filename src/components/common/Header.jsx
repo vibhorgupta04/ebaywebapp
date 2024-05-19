@@ -56,17 +56,17 @@ const Header = () => {
               </div>
               <>
               <form onSubmit={handleSearch} className="w-full flex gap-2">
-                <div className="w-full flex items-center border border-black">
+                <div className="w-full flex items-center border border-black rounded">
                   <IoIosSearch className="ml-2 text-2xl text-gray-400" />
                   <input
                     type="text"
                     placeholder="Search for anything"
-                    className="w-full  focus:outline-none py-1 px-2"
+                    className="w-full focus:outline-none py-3 px-2"
                     onChange={(e) => dispatch(searchItem(e.target.value))}
                   />
                 </div>
                 <button
-                  className="text-white bg-blue-600 px-4 md:px-10 py-1"
+                  className="text-white bg-blue-600 px-4 md:px-10 py-1 rounded"
                   disabled={!search}
                   type="submit"
                   // onClick={handleSearch}

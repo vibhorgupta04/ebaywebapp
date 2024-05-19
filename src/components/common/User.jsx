@@ -25,7 +25,6 @@ function User() {
       }
     });
   };
-  console.log(userDetails);
   useEffect(() => {
     fetchUserData();
   }, []);
