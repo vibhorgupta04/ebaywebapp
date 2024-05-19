@@ -20,16 +20,16 @@ const ModuleCategory = ({ categoriesData }) => {
             draggable={true}
             navigation={false}
           >
-            {categoriesData?.map(({ image, name, id }) => (
-              <SwiperSlide key={id && `category-${id}`}>
+            {categoriesData?.map((category) => (
+              <SwiperSlide key={`category-${category}`}>
                 <div
                   className="w-full md:w-fit flex flex-col justify-center items-center cursor-pointer"
                 >
                   <Link
-                    to={`/products/categoryId/${id}`}
+                    to={`/products/categoryId/${category}`}
                     className="flex flex-col items-center"
                   >
-                    <div className="flex items-center bg-gray-300 rounded-full mx-auto">
+                    {/* <div className="flex items-center bg-gray-300 rounded-full mx-auto">
                       {image ? (
                         <img
                           src={image}
@@ -39,10 +39,10 @@ const ModuleCategory = ({ categoriesData }) => {
                       ) : (
                         <div className="bg-gray-600 lg:py-60 lg:h-60"></div>
                       )}
-                    </div>
-                    {name && (
+                    </div> */}
+                    {category && (
                       <div className="text-lg md:text-xl hover:text-2xl h-10 hover:font-semibold">
-                        {name}
+                        {category}
                       </div>
                     )}
                   </Link>

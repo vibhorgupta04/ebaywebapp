@@ -20,7 +20,7 @@ const ModuleSearch = () => {
     (async () => {
       setLoading(true);
       const res = await fetchProductByTitle(title);
-      setSearchData(res.data);
+      setSearchData(res.data.products);
       setLoading(false);
     })();
   }, [title]);
@@ -51,9 +51,9 @@ const ModuleSearch = () => {
                                 .map((url) => (
                                   <img
                                     key={url}
-                                    src={parseImageUrl(url)}
+                                    src={url}
                                     alt={`Product ${id}`}
-                                    className="w-40 h-32"
+                                    className="h-32"
                                   />
                                 ))
                             ) : (

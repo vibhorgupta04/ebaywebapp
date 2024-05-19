@@ -13,7 +13,7 @@ const Products = () => {
     (async () => {
       setLoading(true);
       const res = await fetchProducts();
-      setProductsData(res.data);
+      setProductsData(res.data.products);
       setLoading(false);
     })();
   }, []);
@@ -38,9 +38,9 @@ const Products = () => {
                         .map((url) => (
                           <img
                             key={url}
-                            src={parseImageUrl(url)}
+                            src={url}
                             alt={`Product ${id}`}
-                            className="w-40 h-32"
+                            className="h-32"
                             />
                         ))
                     ) : (
@@ -61,11 +61,3 @@ const Products = () => {
 };
 
 export default Products;
-
-export const parseImageUrl = (url) => {
-  let splittedUrl = url.split('https')[1]
-  splittedUrl = 'https' + splittedUrl.split('\"')[0]
-  const extensions = ['.jpeg', '.svg', '.png'];
-  if(extensions.some(extension => splittedUrl.endsWith(extension))) return splittedUrl
-  return '/assets/images/No-Image-Placeholder.svg.png'
-}

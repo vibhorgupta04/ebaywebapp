@@ -14,7 +14,7 @@ const ModuleCategoryProducts = () => {
     (async () => {
       setLoading(true);
       const res = await fetchCategoryProduct(categoryId);
-      setCategoryData(res.data);
+      setCategoryData(res.data.products);
       setLoading(false);
     })();
   }, [categoryId]);
@@ -42,7 +42,7 @@ const ModuleCategoryProducts = () => {
                             .map((url) => (
                               <img
                                 key={url}
-                                src={parseImageUrl(url)}
+                                src={url}
                                 alt={`Product ${id}`}
                                 className="w-40 h-32"
                               />

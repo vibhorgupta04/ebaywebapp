@@ -58,11 +58,11 @@ const ModuleProductPage = () => {
                 modules={[Navigation, Pagination]}
               >
                 {images &&
-                  images?.map((item, index) => (
+                  images?.map((url, index) => (
                     <SwiperSlide key={index}>
                       <img
                         className="w-full lg:w-[800px] lg:h-[800px]"
-                        src={parseImageUrl(item)}
+                        src={url}
                         alt="product"
                       />
                     </SwiperSlide>
