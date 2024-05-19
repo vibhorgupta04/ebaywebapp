@@ -23,6 +23,7 @@ import moment from 'moment';
 const ModuleProductPage = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
+  const cartItems = JSON.parse(localStorage.getItem('cart'))
   const [loading, setLoading] = useState(false);
   const [productData, setProductData] = useState(false);
   useEffect(() => {
@@ -36,13 +37,18 @@ const ModuleProductPage = () => {
 
   const { description, images, price, title, updatedAt } = productData;
 
-  if (loading) {
-    return <Loading />;
+  const handleCart = () => {
+    const isItemInCart = cartItems && cartItems?.length > 0 && cartItems?.find(item => item?.id === productData?.id)
+    if(isItemInCart) {
+      return;
+    };
+    const data = cartItems ?  [...cartItems, productData] : [productData]
+    localStorage.setItem('cart', JSON.stringify(data))
+    navigate("/cart")
   }
 
-  const handleCart = () => {
-    localStorage.setItem('cart', JSON.stringify(productData))
-    navigate("/cart")
+  if (loading) {
+    return <Loading />;
   }
   return (
     <div className="max-w-7xl mx-auto">

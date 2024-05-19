@@ -6,15 +6,34 @@ import { RiMoneyDollarCircleFill } from 'react-icons/ri';
 import Loading from "./common/Loading";
 
 const ModuleCart = () => {
-  const [quantity, setQuantity] = useState(1);
-
   const currentDate = moment();
+  const cartItems = JSON.parse(localStorage.getItem('cart')) || []
+  const [quantity, setQuantity] = useState(Array(cartItems?.length ?? 1).fill(1))
 
-  const productData = JSON.parse(localStorage.getItem('cart'))
+  const updateQuantity = (index, newValue) => {
+    const newQuantity = [...quantity];
+    newQuantity[index] = +newValue;
 
-  if(!productData) return <Loading />
-  
-  const { images, price, title } = productData;
+    setQuantity(newQuantity);
+  };
+
+  const initialValue = 0;
+  const totalQuantity = quantity.reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    initialValue,
+  );
+
+  const calculateTotalPrice = () => {
+    let price = 0
+    for(let i = 0; i < cartItems.length; i++) {
+      price += cartItems[i].price * quantity[i]
+    }
+    return price
+  };
+
+  const totalPrice = calculateTotalPrice();
+
+  if (!cartItems) return <Loading />
 
   return (
     <div>
@@ -24,47 +43,48 @@ const ModuleCart = () => {
           {/* Shipping */}
           <div className="w-full p-4 ring-1 ring-gray-200 ">
             <p className="font-semibold text-xl">Review item and shipping</p>
-            <div className="py-6 flex flex-col md:flex-row gap-10">
-              {images && (
-                <img src={images?.[0]} alt={title} className="w-28 h-28" />
-              )}
-              <div className="flex flex-col gap-4">
-                {title && <p className="text-lg font-semibold">{title}</p>}
-                {price && <p className="text-xl font-bold">US ${price}.00</p>}
-                <div className="flex flex-col gap-2">
-                  <label>Quantity</label>
-                  <select className="py-4 px-2 w-40 rounded-lg ring-1 ring-gray-300 focus:outline-none bg-gray-100" value={quantity} onChange={(e) => setQuantity(e.target.value)}>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                  </select>
-                </div>
-                <p className="text-gray-600 font-semibold text-xl">
-                  Free returns
-                </p>
+            {cartItems?.map(({ images, price, title }, index) =>
+              <div className="py-6 flex flex-col md:flex-row gap-10">
+                {images && (
+                  <img src={images?.[0]} alt={title} className="w-28 h-28" />
+                )}
+                <div className="flex flex-col gap-4">
+                  {title && <p className="text-lg font-semibold">{title}</p>}
+                  {price && <p className="text-xl font-bold">US ${price * quantity[index]}.00</p>}
+                  <div className="flex flex-col gap-2">
+                    <label>Quantity</label>
+                    <select className="py-4 px-2 w-40 rounded-lg ring-1 ring-gray-300 focus:outline-none bg-gray-100" value={quantity[index]} onChange={(e) => updateQuantity(index, e.target.value)}>
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                    </select>
+                  </div>
+                  <p className="text-gray-600 font-semibold text-xl">
+                    Free returns
+                  </p>
 
-                <div className="text-xl text-semibold">
-                  <p className="font-bold">Delivery</p>
-                  <p className="text-green-600 font-bold">
-                    Free Standard Shipping
-                  </p>
-                  <p>
-                    Est. delivery:{' '}
-                    {moment(currentDate).add(7, 'days').format('MMMM Do')} –{' '}
-                    {moment(currentDate).add(10, 'days').format('MMMM Do')}
-                  </p>
+                  <div className="text-xl text-semibold">
+                    <p className="font-bold">Delivery</p>
+                    <p className="text-green-600 font-bold">
+                      Free Standard Shipping
+                    </p>
+                    <p>
+                      Est. delivery:{' '}
+                      {moment(currentDate).add(7, 'days').format('MMMM Do')} –{' '}
+                      {moment(currentDate).add(10, 'days').format('MMMM Do')}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </div>)}
           </div>
           {/* Payment */}
           <div className="ring-1 ring-gray-200 md:w-[450px] p-4">
             <div className="text-base flex flex-col gap-3">
               <div className="w-full flex justify-between text-xl">
-                <p>Item ({quantity})</p>
-                <p>US ${(price * quantity).toFixed(2)}</p>
+                <p>Item ({totalQuantity})</p>
+                <p>US ${(totalPrice).toFixed(2)}</p>
               </div>
               <div className="w-full flex justify-between text-xl">
                 <p>Shipping</p>
@@ -82,7 +102,7 @@ const ModuleCart = () => {
             <div className="border-b pt-6" />
             <div className="w-full flex justify-between text-2xl font-bold py-3">
               <p>Order total</p>
-              <p>US ${(price * quantity).toFixed(2)}</p>
+              <p>US ${(totalPrice + 4.80).toFixed(2)}</p>
             </div>
             <p className="bg-gray-100 px-3 py-2 mt-6 text-sm">
               The state of Alabama requires eBay to collect sales tax and

@@ -9,6 +9,9 @@ import { IoIosSearch } from 'react-icons/io';
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const cartItems = JSON.parse(localStorage.getItem('cart')) ?? []
+
+  const totalItemInCart = cartItems.length
 
   const search = useSelector((state) => state.product.title);
 
@@ -30,6 +33,7 @@ const Header = () => {
             </div>
             <Link to='/cart' className="flex gap-4 justify-center items-center">
               <IoCartOutline className="text-2xl" />
+              {totalItemInCart > 0 && <span className="bg-blue-600 font-bold text-white flex items-center justify-center rounded-full w-8 h-8">{totalItemInCart}</span>}
             </Link>
           </div>
         </div>
