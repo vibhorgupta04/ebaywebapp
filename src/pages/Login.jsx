@@ -56,7 +56,7 @@ const Login = () => {
       localStorage.setItem('token', result.user.accessToken);
       localStorage.setItem('user', JSON.stringify(result.user));
       if(result.user){
-        await setDoc(doc(db, "Users", result.user.uid),{
+        await setDoc(doc(db, "Users", result.user?.uid),{
           email: result.user.email,
           firstName: result.user.displayName,
           photo: result.user.photoURL,
