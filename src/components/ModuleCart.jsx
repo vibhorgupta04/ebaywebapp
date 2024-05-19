@@ -1,33 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Header from './common/Header';
 import Footer from './common/Footer';
-import { fetchProductById } from '../api/fetch';
 import moment from 'moment';
 import { RiMoneyDollarCircleFill } from 'react-icons/ri';
-import { useParams } from "react-router-dom";
 import Loading from "./common/Loading";
 
-const ModuleCheckout = (props) => {
-  const [loading, setLoading] = useState();
-  const [productData, setProductData] = useState();
+const ModuleCart = () => {
   const [quantity, setQuantity] = useState(1);
 
   const currentDate = moment();
-  const {productId} = useParams()
 
-  useEffect(() => {
-    (async () => {
-      setLoading(true);
-      const res = await fetchProductById(productId);
-      setProductData(res.data);
-      setLoading(false);
-    })();
-  }, []);
+  const productData = JSON.parse(localStorage.getItem('cart'))
 
-  if(loading) {
-    return <Loading />
-  }
   if(!productData) return <Loading />
+  
   const { images, price, title } = productData;
 
   return (
@@ -129,4 +115,4 @@ const ModuleCheckout = (props) => {
   );
 };
 
-export default ModuleCheckout;
+export default ModuleCart;

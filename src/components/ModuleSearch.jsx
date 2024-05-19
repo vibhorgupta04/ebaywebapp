@@ -3,7 +3,6 @@ import Header from './common/Header';
 import Footer from './common/Footer';
 import { Link, useLocation } from 'react-router-dom';
 import { fetchProductByTitle } from '../api/fetch';
-import { parseImageUrl } from './ModuleProducts';
 import Loading from './common/Loading';
 
 function useQuery() {

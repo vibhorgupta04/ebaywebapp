@@ -28,9 +28,9 @@ const Header = () => {
               <Link to='/products' className="hidden md:block">Daily Deals</Link>
               <div className="hidden md:block">Help & Contact</div>
             </div>
-            <div className="flex gap-4 justify-center items-center">
+            <Link to='/cart' className="flex gap-4 justify-center items-center">
               <IoCartOutline className="text-2xl" />
-            </div>
+            </Link>
           </div>
         </div>
         {/* Second */}

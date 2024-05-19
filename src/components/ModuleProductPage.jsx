@@ -15,14 +15,14 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Navigation, Pagination } from 'swiper/modules';
-import { useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { fetchProductById } from '../api/fetch';
 import Loading from './common/Loading';
 import moment from 'moment';
-import {parseImageUrl} from './ModuleProducts'
 
 const ModuleProductPage = () => {
   const { productId } = useParams();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [productData, setProductData] = useState(false);
   useEffect(() => {
@@ -40,6 +40,10 @@ const ModuleProductPage = () => {
     return <Loading />;
   }
 
+  const handleCart = () => {
+    localStorage.setItem('cart', JSON.stringify(productData))
+    navigate("/cart")
+  }
   return (
     <div className="max-w-7xl mx-auto">
       {productData && (
@@ -91,10 +95,10 @@ const ModuleProductPage = () => {
                   Condition: <p className="pl-1 font-semibold">New with box</p>
                 </span>
                 <span className="pt-2 flex flex-col gap-4">
-                  <button className="w-full bg-blue-600 font-semibold text-white text-lg rounded-full py-3">
+                  <Link to={`/checkout/${productId}`} className="w-full bg-blue-600 font-semibold text-white text-lg rounded-full py-3 text-center">
                     Buy it Now
-                  </button>
-                  <button className="w-full ring-1 ring-blue-600 font-semibold text-blue-600 text-lg rounded-full py-3">
+                  </Link>
+                  <button className="w-full ring-1 ring-blue-600 font-semibold text-blue-600 text-lg rounded-full py-3" onClick={handleCart}>
                     View in Cart
                   </button>
                   <button className="w-full ring-1 ring-blue-600 font-semibold text-blue-600 text-lg rounded-full py-3">

@@ -4,7 +4,6 @@ import Footer from './common/Footer';
 import { fetchCategoryProduct } from '../api/fetch';
 import { Link, useParams } from 'react-router-dom';
 import Loading from './common/Loading';
-import { parseImageUrl } from "./ModuleProducts";
 
 const ModuleCategoryProducts = () => {
   const [loading, setLoading] = useState(false);
