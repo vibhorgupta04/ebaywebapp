@@ -31,7 +31,7 @@ const ModuleCategoryProducts = () => {
                 const { images, title, price, id } = items;
                 return (
                   <>
-                    <Link to={`/products/${id}`} key={`product-${id}`}>
+                    <Link to={`/products/${id}`} key={`product-${id}`} className='border-b'>
                       <div
                         className="w-full md:w-40 flex flex-col text-left my-2"
                       >
@@ -43,7 +43,7 @@ const ModuleCategoryProducts = () => {
                                 key={url}
                                 src={url}
                                 alt={`Product ${id}`}
-                                className="w-40 h-32"
+                                className="h-60 w-fit md:h-32 object-fit"
                               />
                             ))
                         ) : (
