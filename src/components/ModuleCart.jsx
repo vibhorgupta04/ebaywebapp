@@ -94,7 +94,7 @@ const ModuleCart = () => {
             ))}
           </div>
           {/* Payment */}
-          <div className="ring-1 ring-gray-200 md:w-[450px] p-4">
+          <div className="h-fit sticky top-2 ring-1 ring-gray-200 md:w-[450px] p-4">
             <div className="text-base flex flex-col gap-3">
               <div className="w-full flex justify-between text-xl">
                 <p>Item ({totalQuantity})</p>
