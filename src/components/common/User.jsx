@@ -7,19 +7,30 @@ import { doc, getDoc } from 'firebase/firestore';
 import { RiArrowDropDownLine } from 'react-icons/ri';
 import { FaRegCircleUser } from 'react-icons/fa6';
 import { IoLogOutOutline } from 'react-icons/io5';
+import { toast } from 'react-toastify';
 function User() {
   const [open, setOpen] = useState(false);
 
   const [userDetails, setUserDetails] = useState(null);
   const fetchUserData = async () => {
     auth.onAuthStateChanged(async (user) => {
-      console.log(user);
+      // console.log('user', user);
       if (!user) return;
       const docRef = doc(db, 'Users', user?.uid);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         setUserDetails(docSnap.data());
-        console.log(docSnap.data());
+        // console.log("docsnap",docSnap.data());
+        toast.success('Logged in successfully!', {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
       } else {
         console.log('user is not logged in');
       }
@@ -35,7 +46,6 @@ function User() {
     await signOut(auth);
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-
     navigate('/login');
   };
 
