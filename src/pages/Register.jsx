@@ -45,9 +45,8 @@ const Register = () => {
         formData.email,
         formData.password
       );
-      // const user = userCredential.user;
       const user = auth.currentUser;
-      console.log(user);
+      // console.log(user);
       if (user) {
         await setDoc(doc(db, 'Users', user?.uid), {
           email: user.email,
@@ -56,7 +55,7 @@ const Register = () => {
           photo: '',
         });
       }
-      console.log('user register successfully');
+      // console.log('user register successfully');
       localStorage.setItem('token', user.accessToken);
       localStorage.setItem('user', JSON.stringify(user));
       navigate('/login');

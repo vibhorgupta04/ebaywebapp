@@ -8,31 +8,38 @@ import { RiArrowDropDownLine } from 'react-icons/ri';
 import { FaRegCircleUser } from 'react-icons/fa6';
 import { IoLogOutOutline } from 'react-icons/io5';
 import { toast } from 'react-toastify';
-function User() {
-  const [open, setOpen] = useState(false);
+import { useDispatch, useSelector } from 'react-redux';
+import { isLoggedIn } from '../../store';
 
+function User() {
+  const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
   const fetchUserData = async () => {
     auth.onAuthStateChanged(async (user) => {
       // console.log('user', user);
-      if (!user) return;
-      const docRef = doc(db, 'Users', user?.uid);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        setUserDetails(docSnap.data());
-        // console.log("docsnap",docSnap.data());
-        toast.success('Logged in successfully!', {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'colored',
-        });
+      // if (user) {
+      //   dispatch(isLoggedIn(true))
+      // }else {
+      //   dispatch(isLoggedIn(false))
+      // }
+      // const docRef = doc(db, 'Users', user?.uid);
+      // const docSnap = await getDoc(docRef);
+      // if (docSnap.exists()) {
+      //   setUserDetails(docSnap.data());
+      //   console.log('docsnap', docSnap.data());
+      // }
+
+      if (user) {
+        dispatch(isLoggedIn(true)); // Set isLoggedIn to true if user is logged in
+        const docRef = doc(db, 'Users', user.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setUserDetails(docSnap.data());
+        }
       } else {
-        console.log('user is not logged in');
+        dispatch(isLoggedIn(false)); // Set isLoggedIn to false if user is not logged in
+        setUserDetails(null); // Clear user details
       }
     });
   };
@@ -51,6 +58,17 @@ function User() {
 
   const firstName = userDetails?.firstName?.split(' ') ?? '';
 
+  toast.success('Logged in successfully!', {
+    position: 'top-right',
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: 'colored',
+  });
+
   return (
     <>
       {userDetails ? (
@@ -59,11 +77,18 @@ function User() {
             onClick={() => setOpen(!open)}
             className="flex items-center gap-1 cursor-pointer bg-white"
           >
-            <img
-              src={userDetails?.photo}
-              alt="profile"
-              className="w-[40px] h-[40px] rounded-full  border-4 border-white  "
-            />
+            {userDetails?.photo ? (
+              <img
+                src={userDetails?.photo}
+                alt="profile"
+                className="w-[40px] h-[40px] rounded-full  border-4 border-white  "
+              />
+            ) : (
+              <div className="uppercase bg-gray-700 rounded-full w-10 h-10 flex items-center justify-center text-white text-lg">
+                {userDetails?.firstName.charAt(0)}{userDetails?.lastName.charAt(0)}
+              </div>
+            )}
+
             <span className="text-black font-semibold underline">
               {firstName[0]}
             </span>
@@ -73,18 +98,9 @@ function User() {
           </div>
           {open && (
             <div className="rounded border-[1px] border-gray-500 bg-white  absolute top-[40px] w-[200px] shadow-md z-10 ">
-              {/* <div className="p-1">
-              <img
-                src={userDetails?.photo}
-                alt="profile"
-                className="w-[40px] h-[40px] rounded-full  border-4 border-white  "
-              />
-            </div> */}
-
               <div className="cursor-pointer hover:text-white pl-2 flex items-center gap-4 hover:bg-blue-500 p-4">
                 <FaRegCircleUser className="text-xl" /> Profile
               </div>
-
               <div
                 onClick={handleLogout}
                 className="cursor-pointer hover:text-white pl-2 flex items-center gap-4 hover:bg-blue-500 p-4 "

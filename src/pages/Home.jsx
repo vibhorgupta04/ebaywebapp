@@ -40,7 +40,7 @@ const Home = () => {
             spaceBetween={30}
             pagination={{ clickable: true }}
             autoplay={{
-              delay: 3000,
+              delay: 5000,
               disableOnInteraction: false,
             }}
             draggable={true}
@@ -49,10 +49,22 @@ const Home = () => {
           >
             <SwiperSlide>
               <div className="w-full md:h-[450px]">
-                <img
-                  src="/assets/Banner-Images/1.jpg"
-                  className=" object-cover h-64 md:h-[450px] w-full"
-                />
+                <Link to="/products/categoryId/mens-shoes">
+                  <img
+                    src="/assets/Banner-Images/1.jpg"
+                    className=" object-cover h-64 md:h-[450px] w-full"
+                  />
+                </Link>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="w-full md:h-[450px]">
+                <Link to="/products/categoryId/furniture">
+                  <img
+                    src="/assets/Banner-Images/3.jpg"
+                    className=" object-cover h-64 md:h-[450px] w-full"
+                  />
+                </Link>
               </div>
             </SwiperSlide>
             <SwiperSlide>
@@ -61,6 +73,26 @@ const Home = () => {
                   src="/assets/Banner-Images/2.jpg"
                   className=" object-cover h-64 md:h-[450px] w-full"
                 />
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="w-full md:h-[450px]">
+                <Link to="/products/categoryId/lighting">
+                  <img
+                    src="/assets/Category-images/florian-bernhardt-bnXUaEq9xYQ-unsplash.jpg"
+                    className=" object-cover h-64 md:h-[450px] w-full"
+                  />
+                </Link>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="w-full md:h-[450px]">
+                <Link to="/products/categoryId/skincare">
+                  <img
+                    src="/assets/Banner-Images/5.jpg"
+                    className=" object-cover h-64 md:h-[450px] w-full"
+                  />
+                </Link>
               </div>
             </SwiperSlide>
           </Swiper>

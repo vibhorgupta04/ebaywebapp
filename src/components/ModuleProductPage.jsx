@@ -19,6 +19,8 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { fetchProductById } from '../api/fetch';
 import Loading from './common/Loading';
 import moment from 'moment';
+import { useSelector } from 'react-redux';
+
 
 const ModuleProductPage = () => {
   const { productId } = useParams();
@@ -36,6 +38,9 @@ const ModuleProductPage = () => {
   }, [productId]);
 
   const { description, images, price, title, updatedAt } = productData;
+
+  const isLoggedIn = useSelector((state) => state.authentication.loggedIn);
+
 
   const handleCart = () => {
     const isItemInCart = cartItems && cartItems?.length > 0 && cartItems?.find(item => item?.id === productData?.id)
@@ -101,7 +106,7 @@ const ModuleProductPage = () => {
                   Condition: <p className="pl-1 font-semibold">New with box</p>
                 </span>
                 <span className="pt-2 flex flex-col gap-4">
-                  <Link to={`/checkout/${productId}`} className="w-full bg-blue-600 font-semibold text-white text-lg rounded-full py-3 text-center">
+                  <Link to={isLoggedIn ? `/checkout/${productId}` : "/login"} className="w-full bg-blue-600 font-semibold text-white text-lg rounded-full py-3 text-center">
                     Buy it Now
                   </Link>
                   <button className="w-full ring-1 ring-blue-600 font-semibold text-blue-600 text-lg rounded-full py-3" onClick={handleCart}>

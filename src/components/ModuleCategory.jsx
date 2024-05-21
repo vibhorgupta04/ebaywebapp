@@ -129,23 +129,84 @@ const ModuleCategory = ({ categoriesData }) => {
                     {category === 'mens-shoes' && (
                       <div>
                         <img
+                          src="/assets/Category-images/ayrus-hill-FkNIKhdnnjQ-unsplash.jpg"
+                          alt="logo"
+                          className="rounded w-40 h-40 lg:w-60 lg:h-60 object-cover"
+                        />
+                      </div>
+                    )}
+                    {category === 'mens-watches' && (
+                      <div>
+                        <img
                           src="/assets/Category-images/sahej-brar-U6rBOaaRNB0-unsplash.jpg"
                           alt="logo"
                           className="rounded w-40 h-40 lg:w-60 lg:h-60 object-cover"
                         />
                       </div>
                     )}
-                    {/* <div className="flex items-center bg-gray-300 rounded-full mx-auto">
-                      {image ? (
+                    {category === 'womens-watches' && (
+                      <div>
                         <img
-                          src={image}
+                          src="/assets/Category-images/mambawatches-SEvTZ0C9zhU-unsplash.jpg"
                           alt="logo"
-                          className="rounded-full w-auto md:w-40 md:h-40 lg:w-60 lg:h-60"
+                          className="rounded w-40 h-40 lg:w-60 lg:h-60 object-cover"
                         />
-                      ) : (
-                        <div className="bg-gray-600 lg:py-60 lg:h-60"></div>
-                      )}
-                    </div> */}
+                      </div>
+                    )}
+                    {category === 'womens-bags' && (
+                      <div>
+                        <img
+                          src="/assets/Category-images/laura-chouette-N_N-W32xHMc-unsplash.jpg"
+                          alt="logo"
+                          className="rounded w-40 h-40 lg:w-60 lg:h-60 object-cover"
+                        />
+                      </div>
+                    )}
+                    {category === 'womens-jewellery' && (
+                      <div>
+                        <img
+                          src="/assets/Category-images/arteum-ro-GKbfUFna-9I-unsplash.jpg"
+                          alt="logo"
+                          className="rounded w-40 h-40 lg:w-60 lg:h-60 object-cover"
+                        />
+                      </div>
+                    )}
+                    {category === 'sunglasses' && (
+                      <div>
+                        <img
+                          src="/assets/Category-images/apostolos-vamvouras-Pp_nVOuJMTU-unsplash.jpg"
+                          alt="logo"
+                          className="rounded w-40 h-40 lg:w-60 lg:h-60 object-cover"
+                        />
+                      </div>
+                    )}
+                    {category === 'automotive' && (
+                      <div>
+                        <img
+                          src="/assets/Category-images/jonathan-borba-xRDuEeG1TVI-unsplash.jpg"
+                          alt="logo"
+                          className="rounded w-40 h-40 lg:w-60 lg:h-60 object-cover"
+                        />
+                      </div>
+                    )}
+                    {category === 'motorcycle' && (
+                      <div>
+                        <img
+                          src="/assets/Category-images/oxana-melis-BuAuuEI2ubM-unsplash.jpg"
+                          alt="logo"
+                          className="rounded w-40 h-40 lg:w-60 lg:h-60 object-cover"
+                        />
+                      </div>
+                    )}
+                    {category === 'lighting' && (
+                      <div>
+                        <img
+                          src="/assets/Category-images/florian-bernhardt-bnXUaEq9xYQ-unsplash.jpg"
+                          alt="logo"
+                          className="rounded w-40 h-40 lg:w-60 lg:h-60 object-cover"
+                        />
+                      </div>
+                    )}
                     {category && (
                       <div className="text-lg md:text-xl h-10 hover:font-semibold capitalize">
                         {category}

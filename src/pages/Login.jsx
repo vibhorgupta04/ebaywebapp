@@ -41,17 +41,14 @@ const Login = () => {
       localStorage.setItem('token', user.accessToken);
       localStorage.setItem('user', JSON.stringify(user));
       navigate('/');
-      // console.log(user);
     } catch (error) {
-      // console.log('error', error);
+      console.log(error);
     }
   };
 
   const handleSignInWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, googleAuthProvider);
-      // console.log("-->",result);
-
       localStorage.setItem('token', result.user.accessToken);
       localStorage.setItem('user', JSON.stringify(result.user));
       if (result.user) {
@@ -62,29 +59,9 @@ const Login = () => {
           lastName: '',
         });
       }
-      // toast.success('Logged in successfully!', {
-      //   position: 'top-right',
-      //   autoClose: 5000,
-      //   hideProgressBar: false,
-      //   closeOnClick: true,
-      //   pauseOnHover: true,
-      //   draggable: true,
-      //   progress: undefined,
-      //   theme: 'colored',
-      // });
       navigate('/');
     } catch (error) {
-      console.log(error.status);
-      toast.error('Logged in successfully!', {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored',
-      });
+      console.log(error);
     }
   };
 
