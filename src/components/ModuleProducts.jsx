@@ -13,7 +13,7 @@ import {
 const Products = () => {
   const [loading, setLoading] = useState(false);
   const [productsData, setProductsData] = useState();
-  const [sortType, setSortType] = useState("")
+  const [sortType, setSortType] = useState('');
   const [categoriesData, setCategoriesData] = useState();
 
   useEffect(() => {
@@ -27,17 +27,22 @@ const Products = () => {
       setLoading(false);
     })();
   }, []);
-  if (!productsData) return <Loading />
+  if (!productsData) return <Loading />;
   const getSortedProducts = () => {
-    const itemsWithIndex = productsData.map((item, index) => ({ ...item, originalIndex: index }));
+    const itemsWithIndex = productsData.map((item, index) => ({
+      ...item,
+      originalIndex: index,
+    }));
 
-    if(sortType === 'low') return itemsWithIndex?.sort((a, b) => a.price - b.price)
-    if(sortType === 'high') return itemsWithIndex?.sort((a, b) => b.price - a.price);
+    if (sortType === 'low')
+      return itemsWithIndex?.sort((a, b) => a.price - b.price);
+    if (sortType === 'high')
+      return itemsWithIndex?.sort((a, b) => b.price - a.price);
 
     return itemsWithIndex.sort((a, b) => a.originalIndex - b.originalIndex);
-  }
+  };
 
-  const products = getSortedProducts()
+  const products = getSortedProducts();
 
   return (
     <section>
@@ -48,7 +53,11 @@ const Products = () => {
         ) : (
           <>
             <div className="flex justify-end mr-4">
-              <select className="my-4 bg-gray-100 rounded px-4 py-2 focus:outline-none" value={sortType} onChange={(e) => setSortType(e.target.value)}>
+              <select
+                className="my-4 bg-gray-100 rounded px-4 py-2 focus:outline-none"
+                value={sortType}
+                onChange={(e) => setSortType(e.target.value)}
+              >
                 <option value="popular">Popularity</option>
                 <option value="low">Price--Low to High</option>
                 <option value="high">Price--High to Low</option>
@@ -62,10 +71,17 @@ const Products = () => {
                   </DisclosureButton>
                   <DisclosurePanel className="text-gray-500">
                     <div className="flex flex-col gap-1 pt-4 pl-2 pb-4">
-                      <div className="text-blue-500 cursor-pointer">All</div>
-                     {categoriesData?.map(cat => <Link to={`/products/categoryId/${cat}`} className="text-blue-500 cursor-pointer capitalize">
-                        {cat}
-                      </Link>)}
+                      {/* <Link to="/products">
+                        <div className="text-blue-500 cursor-pointer">All</div>
+                      </Link> */}
+                      {categoriesData?.map((cat) => (
+                        <Link
+                          to={`/products/categoryId/${cat}`}
+                          className="text-blue-500 cursor-pointer capitalize"
+                        >
+                          {cat}
+                        </Link>
+                      ))}
                     </div>
                   </DisclosurePanel>
                   <div className="border-b" />
@@ -74,7 +90,7 @@ const Products = () => {
               <div className="md:mx-auto w-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {products?.map(({ images, title, price, id }) => (
                   <div>
-                    <Link to={`/products/${id}`} className='border-b'>
+                    <Link to={`/products/${id}`} className="border-b">
                       <div
                         key={`product-${id}`}
                         className="md:w-40 flex flex-col text-left my-2"
